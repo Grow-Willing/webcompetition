@@ -1,0 +1,50 @@
+.nav{
+    width:20%;
+    height: 100%;
+}
+.nav-ul{
+    margin-bottom: 0;
+}
+.nav-ul li{
+    position: relative;
+    top:60px;
+    font-size: 20px;
+    color: rgb(179, 224, 241);
+    text-align: center;
+    padding: 5px;
+    border-bottom: 2px solid transparent;
+    margin-top: 10px;
+}
+.nav-ul li:nth-child(1){
+    margin-top: 0;
+}
+.nav-ul li:hover{
+    background-color: rgba(26, 134, 177,.2);
+}
+.nav-ul li:hover a{
+    color: white;
+}
+.nav-ul li::after{
+    position: absolute;
+    bottom:-2px;
+    left: 50%;
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: 0.5s;
+}
+.nav-ul li:hover::after{
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+.nav-ul .on{
+    border-bottom: 2px solid white;
+}
+.nav-ul .on a{
+    color:white;
+}
+.nav-ul li a{
+    display: block;
+}

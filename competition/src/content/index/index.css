@@ -1,0 +1,10 @@
+.bodyhead{
+    height: 42px;
+    line-height: 42px;
+    color: grey;
+    font-size: 18px;
+    background-color: #00c0ff5e;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+}

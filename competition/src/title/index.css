@@ -1,0 +1,15 @@
+.wrap{
+    display: block;
+    height: 40px;
+    font-size: 24px;
+    width: 170px;
+    margin: auto;
+    cursor: pointer;
+}
+.wrap:hover{
+    color: white;
+}
+.title-content{
+    color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(0, 0, 0, 0.2);
+}

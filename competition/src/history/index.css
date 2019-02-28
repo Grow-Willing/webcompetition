@@ -1,0 +1,41 @@
+.historybox{
+    height: calc(100% - 53px);
+    width: 100%;
+}
+.historybox dl{
+    margin-bottom: 0;
+}
+.historybox dl dt,.historybox dl dd{
+    text-align: center;
+    font-size: 20px;
+}
+.historybox dl dd a{
+    display: block;
+    color: rgba(255, 249, 0, 0.88);
+    border-radius: 20px 0 0 20px;
+    padding: 5px 50px;
+    transition: .5s;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.historybox dl dd:hover a{
+    /* background-color: rgb(209, 101, 101); */
+    /* background-color: rgba(124, 101, 209, 0.2); */
+    background-color:  rgba(216, 15, 25,0.15);
+    animation: tran-in 2.5s ease 0s 1;
+
+}
+@keyframes tran-in{ 
+    0%   { background-color:rgba(216, 15, 25,0.15)  }
+    10%  { background-color:rgba(236, 13, 106,0.15) }
+    20%  { background-color:rgba(216, 15, 206,0.15) }
+    30%  { background-color:rgba(102, 15, 216,0.15) }
+    40%  { background-color:rgba(15, 102, 216,0.15) }
+    50%  { background-color:rgba(15, 216, 149,0.15) }
+    60%  { background-color:rgba(15, 216, 42,0.15)  }
+    70%  { background-color:rgba(122, 216, 15,0.15) }
+    80%  { background-color:rgba(220, 235, 10,0.15) }
+    90%  { background-color:rgba(216, 152, 15,0.15) }
+    100% { background-color:rgba(216, 15, 25,0.15)  }
+}

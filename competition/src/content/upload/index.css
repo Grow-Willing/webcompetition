@@ -1,0 +1,5 @@
+.uploadbox{
+    position: fixed;
+    left: calc(20vw + 10px);
+    bottom: 10px;
+}

@@ -1,0 +1,15 @@
+.reg{
+    display: flex;
+    align-content: space-around;
+    flex-direction: column;
+}
+.reg>div{
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+.reg>div>div,.reg>div>input{
+    width: 50%;
+    height: 40px;
+    line-height: 40px;
+}

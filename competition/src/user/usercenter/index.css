@@ -1,0 +1,96 @@
+.personalitemstitle{
+    text-align: center;
+    cursor: pointer;
+    transition: .5s;
+    width: 70%;
+    border-radius: 52px;
+    margin-bottom: 1em;
+}
+.personalitemstitle:hover{
+    background-color: #0017ff66;
+}
+.personalitems{
+    margin-bottom: 50px;
+    position: relative;
+    height: 90px;
+}
+.reset{
+    position: absolute;
+    right: 20%;
+    top: 5%;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 0 5px;
+    transition: .5s;
+}
+.submiticon{
+    position: absolute;
+    right: 20%;
+    bottom: 5%;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 0 5px;
+    transition: .5s;
+}
+.bgshower{
+    width: 180px;
+    height: 95px;
+    background: linear-gradient( 100deg,
+    rgb(55, 74, 171) 0%,
+    rgb(52, 119, 158) 20%,
+    rgb(57, 187, 218) 30%,
+    rgb(27, 67, 140) 40%, 
+    rgb(16, 127, 138) 50%,
+    rgb(234, 185, 42) 80%,
+    rgb(218, 131, 40) 100% );
+    cursor: pointer;
+}
+
+.changepassword{
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+.changepassword>div{
+    display:flex;
+    justify-content: space-around;
+    margin: 10px;
+}
+.changepassword>div>div {
+    width: 75%;
+}
+.changepassword button{
+    margin-right: 20px;
+}
+.pwdtitle{
+    text-align: center;
+    font-size: 32px;
+}
+.feedback{
+    height: 125px;
+    min-height: 125px;
+}
+.feedbackmsg{
+    display: flex;
+    height: 100%;;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content:space-around; 
+}
+.feedbackmsg i{
+    position: absolute;
+    left: -27px;
+    top: 3px;
+}
+.feedbackmsg>div{
+    display: flex;
+    position: relative;
+    width: 30%;
+}
+#feedbacktextbox{
+    width: 80%;
+}
+#submitfeedback{
+    display: block;
+    margin: auto;
+}

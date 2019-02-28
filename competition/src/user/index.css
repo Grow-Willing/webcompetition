@@ -1,0 +1,6 @@
+.userstate{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    padding: 5px 0 0 0;
+}
