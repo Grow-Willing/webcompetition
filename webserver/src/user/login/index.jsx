@@ -37,13 +37,16 @@ export default class App extends React.Component {
         res=>res.text()
       ).then(
           data=>{
-              if(data==="false"){
-                  message.info("用户名或密码错误");
-              }else if(data==="true")
-              {
-                  sessionStorage.setItem("userid",btoa(userid));
-                  window.location.href="/";
-              }
+                if(data==="false"){
+                    message.info("用户名或密码错误");
+                    id.value="";
+                    pwd.value="";
+                }else if(data==="true")
+                {
+                    sessionStorage.setItem("userid",btoa(userid));
+                    message.success("登陆成功，即将跳转");
+                    setTimeout(()=>{window.location.href="/";},1000)
+                }
           }
       )
   }

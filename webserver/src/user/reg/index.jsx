@@ -94,22 +94,22 @@ export default class index extends Component {
                         visible={this.state.visible}
                     >
                         <div className={"reg"}>
-                                    <div>
-                                        <div className={"pwdtitle"}>请输入您希望的账号:</div>
-                                        <Input placeholder="请输入您希望的账号(仅数字)" id={"count"}/>
-                                    </div>
-                                    <div>
-                                        <div className={"pwdtitle"}>请输入密码:</div>
-                                        <Input.Password placeholder="请输入密码" id={"regpwd"} visibilityToggle={false}/>
-                                    </div>
-                                    <div>
-                                        <div className={"pwdtitle"}>请输入再次输入密码:</div>
-                                        <Input.Password placeholder="请输入再次输入密码" id={"regconfirmpwd"} visibilityToggle={false} onPressEnter={this.onsubmit}/>
-                                    </div>
-                                    <div>
-                                        <Button type="primary" onClick={this.onsubmit}>提交</Button>
-                                    </div>
-                                </div>
+                            <div>
+                                <div className={"pwdtitle"}>请输入您希望的账号:</div>
+                                <Input placeholder="请输入您希望的账号(仅数字)" id={"count"}/>
+                            </div>
+                            <div>
+                                <div className={"pwdtitle"}>请输入密码:</div>
+                                <Input.Password placeholder="请输入密码" id={"regpwd"} visibilityToggle={false}/>
+                            </div>
+                            <div>
+                                <div className={"pwdtitle"}>请输入再次输入密码:</div>
+                                <Input.Password placeholder="请输入再次输入密码" id={"regconfirmpwd"} visibilityToggle={false} onPressEnter={this.onsubmit}/>
+                            </div>
+                            <div>
+                                <Button type="primary" onClick={this.onsubmit}>提交</Button>
+                            </div>
+                        </div>
                     </Drawer>
             </div>
         )

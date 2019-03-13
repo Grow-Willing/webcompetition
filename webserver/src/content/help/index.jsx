@@ -38,7 +38,7 @@ export default class index extends Component {
                     <a href={require("./static/注册1.png")} target="_blank">
                         <img title="点击放大图片" src={require("./static/注册1.png")} alt=""/>
                     </a>
-                    <div>(2)然后，按照帐号密码要求格式输入帐号密码，点击提交按钮，进行帐号密码帐号的验证，并返回注册状态。若帐号已存在，则会返回帐号已存在，重新进行帐号注册。若注册成果则会自动返回首页</div>
+                    <div>(2)然后，按照帐号密码要求格式输入帐号密码，点击提交按钮，进行帐号密码帐号的验证，并返回注册状态。若帐号已存在，则会返回帐号已存在，重新进行帐号注册。若注册成功则会自动返回首页</div>
                     <a href={require("./static/注册2.png")} target="_blank">
                         <img title="点击放大图片" src={require("./static/注册2.png")} alt=""/>
                     </a>
@@ -47,7 +47,7 @@ export default class index extends Component {
                     <a href={require("./static/登陆1.png")} target="_blank">
                         <img title="点击放大图片" src={require("./static/登陆1.png")} alt=""/>
                     </a>
-                    <div>(2)然后，输入帐号密码，点击提交按钮，进行帐号密码帐号的验证，并返回登录状态。若帐号不正确，返回帐号不合法。若密码不正确，返回密码不合法。当帐号密码验证成功时，返回登录成果状态并跳转首页</div>
+                    <div>(2)然后，输入帐号密码，点击提交按钮，进行帐号密码帐号的验证，并返回登录状态。若帐号不正确，返回帐号不合法。若密码不正确，返回密码不合法。当帐号密码验证成功时，返回登录成功状态并跳转首页</div>
                     <a href={require("./static/登陆2.png")} target="_blank">
                         <img title="点击放大图片" src={require("./static/登陆2.png")} alt=""/>
                     </a>

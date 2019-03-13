@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.ff142461.chunk.css",
-  "main.js": "/static/js/main.6b2509f9.chunk.js",
-  "main.js.map": "/static/js/main.6b2509f9.chunk.js.map",
+  "main.js": "/static/js/main.7ac4669d.chunk.js",
+  "main.js.map": "/static/js/main.7ac4669d.chunk.js.map",
   "static/css/1.9e190659.chunk.css": "/static/css/1.9e190659.chunk.css",
   "static/js/1.45873593.chunk.js": "/static/js/1.45873593.chunk.js",
   "static/js/1.45873593.chunk.js.map": "/static/js/1.45873593.chunk.js.map",
@@ -32,9 +32,9 @@
   "static/media/下载成功2.png": "/static/media/下载成功2.49822dc8.png",
   "static/media/background.png": "/static/media/background.f8dd7700.png",
   "static/media/index.css": "/static/media/welcome.19f7b45f.gif",
-  "static/css/1.9e190659.chunk.css.map": "/static/css/1.9e190659.chunk.css.map",
   "static/css/main.ff142461.chunk.css.map": "/static/css/main.ff142461.chunk.css.map",
+  "static/css/1.9e190659.chunk.css.map": "/static/css/1.9e190659.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.91fe2dfc6288815cbbd57cecd1ce94c8.js": "/precache-manifest.91fe2dfc6288815cbbd57cecd1ce94c8.js",
+  "precache-manifest.95880dcec375033bc3fd85f97f20d572.js": "/precache-manifest.95880dcec375033bc3fd85f97f20d572.js",
   "service-worker.js": "/service-worker.js"
 }

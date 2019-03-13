@@ -1,13 +1,15 @@
 import React from 'react'
 import { message,Drawer, Button,Input,AutoComplete  } from 'antd';
 import Icon from './icon/index'
+import Bg from'./bg/index'
 import "./index.css";
 const { TextArea } = Input;
 const Option = AutoComplete.Option;
 let defaultsrc;
-
+let defaultbg;
 if(sessionStorage.getItem("userid")){
-    defaultsrc=`http://localhost:3005/usericon/${atob(sessionStorage.getItem("userid"))}/icon.jpg`
+    defaultsrc=`http://localhost:3005/usericon/${atob(sessionStorage.getItem("userid"))}/icon.jpg`;
+    defaultbg="url(http://localhost:3005/usericon/"+atob(sessionStorage.getItem("userid"))+"/background.jpg),linear-gradient( 100deg,rgb(55, 74, 171) 0%,rgb(52, 119, 158) 20%,rgb(57, 187, 218) 30%,rgb(27, 67, 140) 40%,rgb(16, 127, 138) 50%,rgb(234, 185, 42) 80%,rgb(218, 131, 40) 100% )"
 }
 export default class App extends React.Component {
 	state = {
@@ -16,7 +18,7 @@ export default class App extends React.Component {
         secondchildrenDrawer:false,
         thirdchildrenDrawer:false,
         src:defaultsrc,
-        background:"",
+        background:defaultbg,
         result: [],
     };
     icon={};
@@ -45,15 +47,14 @@ export default class App extends React.Component {
     
     reseticon=()=>{
         this.setState({src:defaultsrc});
-        document.getElementById("changeicon").value="";
+        this.refs.changeicon.value="";
     }
     changeicon=()=>{
         let setState=this.setState.bind(this);
         let that=this;
-        let x=document.getElementById("changeicon");
+        let x=this.refs.changeicon;
         x.click();
         x.onchange=function(){
-            console.log(that.icon);
             if(this.files.length){
                 that.icon=this.files.item(0);
                 if(/image/.test(that.icon.type)){
@@ -96,7 +97,6 @@ export default class App extends React.Component {
         let that=this;
         bg.click();
         bg.onchange=function(){
-            console.log(that.background);
             if(this.files.length){
                 that.background=this.files.item(0);
                 if(/image/.test(that.background.type)){
@@ -106,7 +106,6 @@ export default class App extends React.Component {
                         let background=read.result;
                         let box=document.getElementById("background");
                         box.style.background=`url(${background}) no-repeat center/cover`;
-                        document.getElementsByClassName("bgshower")[0].style.background=`url(${background}) no-repeat center/cover`;
                         setState({
                             background
                         })
@@ -138,12 +137,12 @@ export default class App extends React.Component {
     resetbg=()=>{
         let userid=atob(sessionStorage.getItem("userid"));
         let x=document.getElementsByClassName("bgshower")[0].style;
-        x.backgroundImage=`url("http://localhost:3005/usericon/${userid}/background.jpg")`;
+        x.backgroundImage=defaultbg;
         x.backgroundRepeat="no-repeat";
         x.backgroundPosition="center";
         x.backgroundSize="cover";
         x=document.getElementById("background").style;
-        x.backgroundImage=`url("http://localhost:3005/usericon/${userid}/background.jpg"),linear-gradient( 100deg,rgb(55, 74, 171) 0%,rgb(52, 119, 158) 20%,rgb(57, 187, 218) 30%,rgb(27, 67, 140) 40%,rgb(16, 127, 138) 50%,rgb(234, 185, 42) 80%,rgb(218, 131, 40) 100% )`;
+        x.backgroundImage=defaultbg;
         x.backgroundRepeat="no-repeat";
         x.backgroundPosition="center";
         x.backgroundSize="cover";
@@ -309,16 +308,11 @@ export default class App extends React.Component {
                             <Icon onClick={this.changeicon} src={this.state.src}  height={"70px"} width={"70px"}/>
                             <Button type="dashed" size="small" className="reset" onClick={this.reseticon}>重置</Button>
                             <Button size="small" className="submiticon" onClick={this.submiticon}>上传</Button>
-                            <input type="file" name="changeicon" id="changeicon" style={{display:"none"}}/>
+                            <input type="file" name="changeicon" ref="changeicon" style={{display:"none"}}/>
                         </div>
                         <div className={"personalitems"}>
                             <div>设置背景</div>
-                            <div className="bgshower" onClick={this.changebg}style={{
-                                    backgroundImage: "url(http://localhost:3005/usericon/"+atob(sessionStorage.getItem("userid"))+"/background.jpg),linear-gradient( 100deg,rgb(55, 74, 171) 0%,rgb(52, 119, 158) 20%,rgb(57, 187, 218) 30%,rgb(27, 67, 140) 40%,rgb(16, 127, 138) 50%,rgb(234, 185, 42) 80%,rgb(218, 131, 40) 100% )",
-                                    backgroundRepeat:"no-repeat",
-                                    backgroundPosition:"center",
-                                    backgroundSize:"cover",
-                                }}></div>
+                            <Bg onClick={this.changebg} src={this.state.background}/>
                             <Button type="dashed" size="small" className="reset" onClick={this.resetbg}>重置</Button>
                             <Button size="small" className="submiticon" onClick={this.submitbg}>上传</Button>
                             <input type="file" name="changebg" id="changebg" style={{display:"none"}}/>
