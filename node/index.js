@@ -136,6 +136,9 @@ router.get("/user/judge",async (ctx)=>{
         )
 })
 router.get("/file/get",async (ctx)=>{
+    if(/\/\.\./.test(ctx.query.url)){
+        return;
+    }
     let srcurl=join(__dirname,ctx.query.url);
     if(fs.existsSync(srcurl)){          //存在目录
         if(fs.statSync(srcurl).isDirectory()){      //是目录返回目录
