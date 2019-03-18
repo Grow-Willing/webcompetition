@@ -62,8 +62,14 @@ router.post("/iconlist",async (ctx)=>{
 
 router.post("/file/upload",async (ctx)=>{
     let path=__dirname+ctx.request.body.path;
+    if(/\/\.\./.test(path)){
+        return ctx.body = '您确定没修改我们的目录吗？';
+    }
     if(fs.existsSync(path)){
         const file = ctx.request.files.file;	// 获取上传文件
+        if(/\/\.\./.test(file.name)){
+            return ctx.body = '文件名称不合法哦';
+        }
         const reader = fs.createReadStream(file.path);	// 创建可读流
         const upStream = fs.createWriteStream(`${path}/${file.name}`);		// 创建可写流
         reader.pipe(upStream);	// 可读流通过管道写入可写流
