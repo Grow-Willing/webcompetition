@@ -16,6 +16,8 @@ mongoose.Promise=global.Promise;
 let Schema=mongoose.Schema;
 let Users=new Schema({userid:Number,password:String},{versionKey:false});
 let users=db.model("user",Users);
+let Files=new Schema({userid:Number,file:String},{versionKey:false});
+let files=db.model("file",Files);
 router.get("/usericon/*",async (ctx) => {
     if ('/usericon' == ctx.path) return ctx.body = 'Try GET /package.json';
     await send(ctx, ctx.path);
@@ -77,6 +79,59 @@ router.post("/file/upload",async (ctx)=>{
     }else{
         return ctx.body="目录不存在";
     }
+})
+router.get("/user/getuploads",async (ctx)=>{
+    let result=ctx.query;
+    //获取信息
+    let userid=Number(result.userid);
+    let password=result.password;
+    if(isNaN(userid)||typeof(password)!="string"||userid<=0||password.length<=6){//参数合法性校验
+        ctx.body={};
+        return;
+    }
+    //查询是否存在
+    await users.findOne(
+        {userid},
+        async (error,result)=>{
+                if(result){
+                    console.dir(files.find({userid:ctx.query.userid}));     //存在用户
+                }else{
+                    return ;
+                }
+            }
+        )
+})
+router.get("/file/delete",async (ctx)=>{
+    let path=join(__dirname,ctx.query.url);
+    if(/\/\.\./.test(ctx.query.url)){
+        return ctx.body = '您确定没修改我们的目录吗？';
+    }
+    let libs=ctx.query.url.split("/");
+    if(libs.length>3&&libs[1]=="全部文件"&&libs[2]=="文科"||libs[2]=="理科"){
+        if(fs.existsSync(path)){
+            fs.unlinkSync(path);
+            return ctx.body = '删除成功';
+        }else{
+            return ctx.body="目录不存在";
+        }
+    }
+    return ctx.body = '删除失败，目录不存在或不能删除';
+})
+router.get("/file/deletes",async (ctx)=>{
+    let path=join(__dirname,ctx.query.url);
+    if(/\/\.\./.test(ctx.query.url)){
+        return ctx.body = '您确定没修改我们的目录吗？';
+    }
+    let libs=ctx.query.url.split("/");
+    if(libs.length>3&&libs[1]=="全部文件"&&libs[2]=="文科"||libs[2]=="理科"){
+        if(fs.existsSync(path)){
+            fs.rmdirSync(path);
+            return ctx.body = '删除成功';
+        }else{
+            return ctx.body="目录不存在";
+        }
+    }
+    return ctx.body = '删除失败，目录不存在或不能删除';
 })
 router.post("/user/reg",async (ctx)=>{
     let result=ctx.request.body;
@@ -164,6 +219,15 @@ router.get("/file/get",async (ctx)=>{
     }
     
 })
+
+//转发web服务
+router.get("/*",async (ctx)=>{
+    let str=ctx.path;
+    if(str=="/") str="index.html";
+    if(str=="/admin") str="admin.html";
+    let a=join("/build",str);
+    await send(ctx,a);
+});
 koa.use(koabody({
         //支持文件上传功能
         multipart: true,
