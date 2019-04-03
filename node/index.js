@@ -5,6 +5,7 @@ const mongoose=require("mongoose");
 const koabody=require("koa-body");
 const send=require("koa-send");
 const logger=require("koa-logger");
+const session=require("koa-session");
 
 const fs=require("fs");
 const {join}=require("path");
@@ -18,6 +19,8 @@ let Users=new Schema({userid:Number,password:String},{versionKey:false});
 let users=db.model("user",Users);
 let Files=new Schema({userid:Number,file:String},{versionKey:false});
 let files=db.model("file",Files);
+let Admins=new Schema({adminid:Number,password:String},{versionKey:false});
+let admins=db.model("admin",Admins);
 router.get("/usericon/*",async (ctx) => {
     if ('/usericon' == ctx.path) return ctx.body = 'Try GET /package.json';
     await send(ctx, ctx.path);
@@ -220,6 +223,45 @@ router.get("/file/get",async (ctx)=>{
     
 })
 
+
+//管理员管理
+router.get("/admin*",async (ctx)=>{
+    if(ctx.path=="\/Admin"){
+        if(ctx.session.login){
+            let a=join("/admin","AdminPage.html");
+            await send(ctx,a);
+        }else{
+            let a=join("/admin","AdminLogin.html");
+            await send(ctx,a);
+        }
+    }
+    else{
+        let a=join("/admin",ctx.path);
+        await send(ctx,a);
+    }
+});
+router.post(
+    "/adminlogin",
+    async (ctx)=>{
+        let adminid=ctx.request.body.adminid;
+        await admins.findOne({adminid,password:ctx.request.body.pwd},
+            (error,result)=>{
+                if(result){
+                    ctx.session={
+                        login:true
+                    }
+                    ctx.body=1;    //通过验证
+                }else {
+                    ctx.body=0;     //不通过验证
+                }
+            }
+        )
+    }
+);
+
+
+
+
 //转发web服务
 router.get("/*",async (ctx)=>{
     let str=ctx.path;
@@ -228,6 +270,11 @@ router.get("/*",async (ctx)=>{
     let a=join("/build",str);
     await send(ctx,a);
 });
+
+
+
+
+
 koa.use(koabody({
         //支持文件上传功能
         multipart: true,
@@ -243,7 +290,18 @@ koa.use(koabody({
             }
         }
     }
-    ));
+));
+koa.keys=["web项目比赛"];
+koa.use(session(
+    {
+        key:"admininfo",
+        overwrite:true,
+        httpOnly:true,
+        signed:true,
+        rolling:false
+    },
+    koa
+));
 koa.use(cors())
     .use(logger())
     .use(router.routes()).use(router.allowedMethods())

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin</title>
+    <style>
+        body{
+            user-select: none;
+        }
+        body,ul,li{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+        .left{
+            width: 10%;
+            /* width: calc(10% - 60px); */
+            height: calc(100vh - 50px);
+            float: left;
+            padding-top:50px;
+            /* padding-left: 20px;
+            padding-right: 20px;  */
+            background-color: rgb(32, 32, 32);
+        }
+        .left ul li{
+            height: 30px;
+            line-height: 30px;
+            text-align: center ;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .left ul li:hover{
+            background-color: rgb(61, 61, 61);
+        }
+        .right{
+            width: 90%;
+            height: 100vh;
+            float: left;
+            background-color: rgb(226, 238, 229);
+        }
+        .title{
+            width: 90%;
+            height: 50px;
+            background-color: rgb(224, 224, 224);
+            margin: 50px auto;
+        }
+        .context{
+            width: 90%;
+            height: calc(100vh - 200px);
+            background-color: rgb(255, 255, 255);
+            margin: 50px auto;
+        }
+        .context ul li{
+            /* width: 90%; */
+            height: 70px; 
+            background-color: rgb(235, 235, 243);
+            /* background-color: rgb(230, 230, 230) */
+            margin: auto;
+        }
+        .file,.attr,.upl{
+            display: inline-block;
+            height: 35px;
+            line-height: 35px;
+            padding-left: 4%;
+        }
+        .file{
+            width: 35%;
+        }
+        .attr{
+            width: 20%;
+            border-left: solid #c0c0bf 2px;
+        }
+        .upl{
+            width: 29%;
+            border-left: solid #c0c0bf 2px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="left">
+            <ul>
+                <li>下载</li>
+                <li>管理</li>
+                <li>应用</li>
+                <li>设置</li>
+                <li>更多</li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="title">
+                1111
+            </div>
+            <div class="context">
+                <div class="file">File</div>
+                <div class="attr">Attribution class</div>
+                <div class="upl">Uploading people</div>
+                <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        let oli=document.querySelectorAll(".context ul li"),
+            len;
+            len=oli.length;
+            for(let i=0;i<len; i++){
+                if(i%2==0){
+                    oli[i].style.backgroundColor="rgb(230, 230, 230)";
+                }
+            }
+
+    </script>
+</body>
+</html>

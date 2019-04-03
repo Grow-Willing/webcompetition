@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin</title>
+<style>
+    body,ul,li{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background: url(./AdminLoginbg.jpg) no-repeat center/cover;
+
+    }
+    .wrap{
+        position: relative;
+        background-color: rgb(86, 163, 218);
+        width: 300px;
+        height: 160px;
+        padding: 50px 0 0 80px;
+        margin: 10% auto;
+        user-select: none;
+    }
+    .user,.uinp,.pass,.passinp{
+        display: inline-block;
+        font-size: 18px;
+    }
+    .uinp,.passinp{
+        width: 180px;
+        margin-bottom:10px;
+    }
+    .btn{
+        background-color: rgb(140, 192, 223);
+        position: absolute;
+        width: 50px;
+        height: 30px;
+        left: calc(50% - 25px);
+        bottom: 15%;
+        text-align: center;
+        line-height: 30px;
+    }
+    .btn:hover{
+        background-color: rgb(56, 198, 241);
+    }
+</style>
+</head>
+
+<body>
+    <div class="wrap" >
+        <div class="user">账号</div>
+        <input type="text" class="uinp" id="id">
+        <br>
+        <div class="pass">密码</div>
+        <input type="password" class="passinp" id="pwd">
+        <div class="btn" id="login">登录</div>
+    </div>
+    <script>
+        document.getElementById('login').onclick=()=>{
+            let id=document.getElementById('id');
+            let pwd=document.getElementById('pwd');
+            fetch("http://localhost:3005/adminlogin",{
+                method:"post",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body:JSON.stringify({adminid:id.value,pwd:pwd.value})
+            }).then(
+                Response=>Response.text()
+            ).then(
+                data=>{
+                    if(data==1){
+                        window.location.reload();
+                    }else{
+                        alert("密码不正确");
+                    }
+                }
+            ); 
+        }
+    </script>
+</body>
+</html>
