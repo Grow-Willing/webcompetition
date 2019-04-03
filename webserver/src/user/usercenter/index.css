@@ -5,6 +5,9 @@
     width: 70%;
     border-radius: 52px;
     margin-bottom: 1em;
+    font-family: "楷体";
+    font-weight: bold;
+    font-size: 20px;
 }
 .personalitemstitle:hover{
     background-color: #0017ff66;
@@ -48,6 +51,7 @@
 
 .changepassword{
     display: flex;
+    font-family: "楷体";
     flex-direction: column;
     align-content: space-between;
 }
@@ -67,7 +71,6 @@
     font-size: 32px;
 }
 .feedback{
-    height: 125px;
     min-height: 125px;
 }
 .feedbackmsg{
@@ -88,6 +91,7 @@
     width: 30%;
 }
 #feedbacktextbox{
+    margin: 42px 0;
     width: 80%;
 }
 #submitfeedback{

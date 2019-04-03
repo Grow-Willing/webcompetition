@@ -9,19 +9,25 @@ let defaultsrc;
 let defaultbg;
 if(sessionStorage.getItem("userid")){
     defaultsrc=`http://localhost:3005/usericon/${atob(sessionStorage.getItem("userid"))}/icon.jpg`;
-    defaultbg="url(http://localhost:3005/usericon/"+atob(sessionStorage.getItem("userid"))+"/background.jpg),linear-gradient( 100deg,rgb(55, 74, 171) 0%,rgb(52, 119, 158) 20%,rgb(57, 187, 218) 30%,rgb(27, 67, 140) 40%,rgb(16, 127, 138) 50%,rgb(234, 185, 42) 80%,rgb(218, 131, 40) 100% )"
+    defaultbg="url(http://localhost:3005/usericon/"+atob(sessionStorage.getItem("userid"))+"/background.jpg),url(http://localhost:3005/needs/defaultbackground.jpg)"
 }
 export default class App extends React.Component {
 	state = {
         visible:false,
         firstchildrenDrawer:false,
         secondchildrenDrawer:false,
+        uploadvisible:false,
         thirdchildrenDrawer:false,
         src:defaultsrc,
         background:defaultbg,
         result: [],
+        uploads:[]
     };
     icon={};
+    componentWillMount = () => {
+        this.getuploadlist();
+    }
+    
     //主抽屉
 	showDrawer = () => {
 		this.setState({
@@ -227,6 +233,38 @@ export default class App extends React.Component {
         }
     }
 
+    //管理上传
+    showuploadDrawer = () => {
+        this.setState({
+            uploadvisible: true,
+        });
+	};
+	onuploadClose = () => {
+		this.setState({
+			uploadvisible: false,
+		});
+    };
+    getuploadlist=()=>{
+        let userid=sessionStorage.getItem("userid");
+        fetch("http://localhost:3005/user/getuploads",
+            {
+                method:"post",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body:JSON.stringify({userid:atob(userid)})
+            }
+        ).then(
+            Response=>Response.json()
+        ).then(
+            data=>{
+                console.log(data);
+                this.setState({
+                    uploads:data
+                });
+            }
+        ); 
+    }
     //意见反馈
     showthirdChildrenDrawer = () => {
 		this.setState({
@@ -293,6 +331,8 @@ export default class App extends React.Component {
                     
                 <p className="personalitemstitle" onClick={this.showsecondChildrenDrawer}>修改密码</p>
 
+                <p className="personalitemstitle" onClick={this.showuploadDrawer}>管理上传</p>
+
                 <p className="personalitemstitle" onClick={this.showthirdChildrenDrawer}>意见反馈</p>
 
                     <Drawer
@@ -353,6 +393,28 @@ export default class App extends React.Component {
                     </Drawer>
 
                     <Drawer
+                        title="管理上传"
+                        placement="left"
+                        width={"1300px"}
+                        closable={true}
+                        onClose={this.onuploadClose}
+                        visible={this.state.uploadvisible}
+                    >
+                        <ul>
+                            {
+                                this.state.uploads.length&&this.state.uploads.map((item,index)=>{
+                                    
+                                    return (
+                                        <li key={index}>
+                                            {this.state.uploads[index].file}
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </Drawer>
+
+                    <Drawer
                         title="意见反馈"
                         placement="left"
                         width={"100vw"}
@@ -378,7 +440,7 @@ export default class App extends React.Component {
                                     <Input id="feedbacktel" placeholder="请输入联系电话" />
                                 </div>
                                 <div id="feedbacktextbox">
-                                    <TextArea id="feedbacktext" placeholder="请输入您的宝贵意见" autosize={{ minRows: 2, maxRows: 6 }} />
+                                    <TextArea id="feedbacktext" placeholder="请输入您的宝贵意见" autosize={{ minRows: 5, maxRows: 10 }} />
                                 </div>
                             </div>
                             <Button id="submitfeedback" type="primary" onClick={this.submitfeedback}>提交</Button>

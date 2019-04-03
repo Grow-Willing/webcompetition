@@ -29,7 +29,7 @@ class App extends Component {
                 </div>
                 <div id="background" style={{
                     filter: "blur(2px)",
-                    background: "url(http://localhost:3005/usericon/"+atob(sessionStorage.getItem("userid"))+"/background.jpg),linear-gradient( 100deg,rgb(55, 74, 171) 0%,rgb(52, 119, 158) 20%,rgb(57, 187, 218) 30%,rgb(27, 67, 140) 40%,rgb(16, 127, 138) 50%,rgb(234, 185, 42) 80%,rgb(218, 131, 40) 100% )",
+                    background: "url(http://localhost:3005/usericon/"+atob(sessionStorage.getItem("userid"))+"/background.jpg),url(http://localhost:3005/needs/defaultbackground.jpg)",
                     backgroundRepeat:"no-repeat",
                     backgroundPosition:"center",
                     backgroundSize:"cover",

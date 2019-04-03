@@ -3,6 +3,9 @@
     height: 100%;
 }
 .nav-ul{
+    height: 100%;
+    font-family: "楷体";
+    font-weight: bold;
     margin-bottom: 0;
 }
 .nav-ul li{
@@ -41,6 +44,7 @@
 }
 .nav-ul .on{
     border-bottom: 2px solid white;
+    font-size: 32px;
 }
 .nav-ul .on a{
     color:white;
