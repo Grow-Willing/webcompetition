@@ -83,26 +83,26 @@ router.post("/file/upload",async (ctx)=>{
         return ctx.body="目录不存在";
     }
 })
-router.get("/user/getuploads",async (ctx)=>{
-    let result=ctx.query;
+router.post("/user/getuploads",async (ctx)=>{
+    let result=ctx.request.body;
     //获取信息
     let userid=Number(result.userid);
-    let password=result.password;
-    if(isNaN(userid)||typeof(password)!="string"||userid<=0||password.length<=6){//参数合法性校验
-        ctx.body={};
+    if(isNaN(userid)||userid<=0){//参数合法性校验
+        ctx.body=[];
         return;
     }
     //查询是否存在
-    await users.findOne(
-        {userid},
-        async (error,result)=>{
-                if(result){
-                    console.dir(files.find({userid:ctx.query.userid}));     //存在用户
-                }else{
-                    return ;
-                }
-            }
-        )
+    await files.find(
+        {userid:result.userid}
+    ).then(res=>funq(res));     //存在用户
+    function funq (res){
+        if(res){
+            ctx.body=res;
+        }else{
+            ctx.body=[];
+            return ;
+        }
+    }
 })
 router.get("/file/delete",async (ctx)=>{
     let path=join(__dirname,ctx.query.url);
@@ -263,6 +263,10 @@ router.post(
 
 
 //转发web服务
+router.get("/needs/*",async (ctx)=>{
+    let str=ctx.path;
+    await send(ctx,str);
+});
 router.get("/*",async (ctx)=>{
     let str=ctx.path;
     if(str=="/") str="index.html";
