@@ -57,9 +57,15 @@
         <div class="btn" id="login">登录</div>
     </div>
     <script>
-        document.getElementById('login').onclick=()=>{
-            let id=document.getElementById('id');
-            let pwd=document.getElementById('pwd');
+        let id=document.getElementById('id');
+        let pwd=document.getElementById('pwd');
+        let login=document.getElementById('login');
+        pwd.onkeydown=(e)=>{
+            if(e.keyCode==13){
+                login.click();
+            }
+        }
+        login.onclick=()=>{
             fetch("http://localhost:3005/adminlogin",{
                 method:"post",
                 headers: {

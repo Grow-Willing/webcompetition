@@ -16,109 +16,54 @@
         li{
             list-style: none;
         }
-        .left{
-            width: 10%;
-            /* width: calc(10% - 60px); */
-            height: calc(100vh - 50px);
-            float: left;
-            padding-top:50px;
-            /* padding-left: 20px;
-            padding-right: 20px;  */
-            background-color: rgb(32, 32, 32);
-        }
-        .left ul li{
-            height: 30px;
-            line-height: 30px;
-            text-align: center ;
-            color: white;
-            margin-bottom: 10px;
-        }
-        .left ul li:hover{
-            background-color: rgb(61, 61, 61);
-        }
-        .right{
-            width: 90%;
-            height: 100vh;
-            float: left;
-            background-color: rgb(226, 238, 229);
-        }
-        .title{
-            width: 90%;
-            height: 50px;
-            background-color: rgb(224, 224, 224);
-            margin: 50px auto;
-        }
-        .context{
-            width: 90%;
-            height: calc(100vh - 200px);
-            background-color: rgb(255, 255, 255);
-            margin: 50px auto;
-        }
-        .context ul li{
-            /* width: 90%; */
-            height: 70px; 
-            background-color: rgb(235, 235, 243);
-            /* background-color: rgb(230, 230, 230) */
-            margin: auto;
-        }
-        .file,.attr,.upl{
-            display: inline-block;
-            height: 35px;
-            line-height: 35px;
-            padding-left: 4%;
-        }
-        .file{
-            width: 35%;
-        }
-        .attr{
-            width: 20%;
-            border-left: solid #c0c0bf 2px;
-        }
-        .upl{
-            width: 29%;
-            border-left: solid #c0c0bf 2px;
-        }
     </style>
+    <link rel="stylesheet" href="./AdminPage.css">
 </head>
 <body>
-    <div>
+    <div style="display:flex">
         <div class="left">
             <ul>
-                <li>下载</li>
-                <li>管理</li>
-                <li>应用</li>
-                <li>设置</li>
-                <li>更多</li>
+                <li class="leftlist">Welcome</li>
+                <li class="leftlist">上传</li>
+                <li class="leftlist">管理</li>
             </ul>
         </div>
         <div class="right">
-            <div class="title">
-                1111
+            <div class="welcome rightlist">
+                <p>Welcome ROOT</p>
             </div>
-            <div class="context">
-                <div class="file">File</div>
-                <div class="attr">Attribution class</div>
-                <div class="upl">Uploading people</div>
-                <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                </ul>
+            <div class="rightlist"></div>
+            <div class="context rightlist">
+                <div class="otheroperations flex">
+                    <div id="reload" class="button" onclick="getlist()">刷新列表</div>
+                    <div class="selectall">
+                        <span onclick="allcheck.click();">全选</span>
+                        <input type="checkbox" id="allcheck">
+                    </div>
+                </div>
+                <div class="title flex">
+                    <div class="flex">
+                        <div class="filename hiddenword">文件</div>
+                        <div class="where hiddenword">归属类</div>
+                        <div class="uploader hiddenword">id</div>
+                    </div>
+                    <div class="flex">
+                        <div class="filename hiddenword">文件</div>
+                        <div class="where hiddenword">归属类</div>
+                        <div class="uploader hiddenword">id</div>
+                    </div>
+                </div>
+                <div class="filelist flex" id="uplist">
+                    <p style="width: 100%;font-size:20px;text-align:center;font-family: 楷体;">
+                        空空如也
+                    </p>
+                </div>
+                <div class="flex" style="justify-content:flex-end;">
+                    <div id="delete" class="button">确认删除</div>
+                </div>
             </div>
         </div>
     </div>
-    <script>
-        let oli=document.querySelectorAll(".context ul li"),
-            len;
-            len=oli.length;
-            for(let i=0;i<len; i++){
-                if(i%2==0){
-                    oli[i].style.backgroundColor="rgb(230, 230, 230)";
-                }
-            }
-
-    </script>
+    <script src="./AdminPage.js"></script>
 </body>
 </html>

@@ -72,12 +72,19 @@ router.post("/file/upload",async (ctx)=>{
     }
     if(fs.existsSync(path)){
         const file = ctx.request.files.file;	// 获取上传文件
+        let fullpath=join(path,file.name);
+        if(fs.existsSync(fullpath)){
+            return ctx.body ="此文件已存在，上传者请删除再更新上传"
+        }
         if(/\/\.\./.test(file.name)){
             return ctx.body = '文件名称不合法哦';
         }
         const reader = fs.createReadStream(file.path);	// 创建可读流
-        const upStream = fs.createWriteStream(`${path}/${file.name}`);		// 创建可写流
+        const upStream = fs.createWriteStream(fullpath);		// 创建可写流
         reader.pipe(upStream);	// 可读流通过管道写入可写流
+        let data=new files({userid:ctx.request.body.userid,file:ctx.request.body.path+"/"+file.name});
+        // 保存文档
+        data.save();
         return ctx.body = '上传成功';
     }else{
         return ctx.body="目录不存在";
@@ -86,21 +93,36 @@ router.post("/file/upload",async (ctx)=>{
 router.post("/user/getuploads",async (ctx)=>{
     let result=ctx.request.body;
     //获取信息
-    let userid=Number(result.userid);
-    if(isNaN(userid)||userid<=0){//参数合法性校验
-        ctx.body=[];
-        return;
-    }
-    //查询是否存在
-    await files.find(
-        {userid:result.userid}
-    ).then(res=>funq(res));     //存在用户
-    function funq (res){
-        if(res){
-            ctx.body=res;
-        }else{
+    
+    if(result.isadmin!=1){
+        let userid=Number(result.userid);
+        if(isNaN(userid)||userid<=0){//参数合法性校验
             ctx.body=[];
-            return ;
+            return;
+        }
+        //查询是否存在
+        await files.find(
+            {userid:result.userid}
+        ).then(res=>funq(res));     //存在用户
+        function funq (res){
+            if(res){
+                ctx.body=res;
+            }else{
+                ctx.body=[];
+                return ;
+            }
+        }
+    }else{
+        await files.find(
+            {}
+        ).then(res=>funq(res));     //存在用户
+        function funq (res){
+            if(res){
+                ctx.body=res;
+            }else{
+                ctx.body=[];
+                return ;
+            }
         }
     }
 })
@@ -113,6 +135,7 @@ router.get("/file/delete",async (ctx)=>{
     if(libs.length>3&&libs[1]=="全部文件"&&libs[2]=="文科"||libs[2]=="理科"){
         if(fs.existsSync(path)){
             fs.unlinkSync(path);
+            await files.deleteOne({file:ctx.query.url});
             return ctx.body = '删除成功';
         }else{
             return ctx.body="目录不存在";
@@ -192,12 +215,12 @@ router.get("/user/judge",async (ctx)=>{
     await users.findOne(
         {userid,password},
         (error,result)=>{
-                if(result)
-                    ctx.body=true;      //通过验证
-                else 
-                    ctx.body=false;     //不通过验证
-            }
-        )
+            if(result)
+                ctx.body=true;      //通过验证
+            else 
+                ctx.body=false;     //不通过验证
+        }
+    )
 })
 router.get("/file/get",async (ctx)=>{
     if(/\/\.\./.test(ctx.query.url)){
@@ -226,7 +249,7 @@ router.get("/file/get",async (ctx)=>{
 
 //管理员管理
 router.get("/admin*",async (ctx)=>{
-    if(ctx.path=="\/Admin"){
+    if(ctx.path=="/Admin"){
         if(ctx.session.login){
             let a=join("/admin","AdminPage.html");
             await send(ctx,a);
