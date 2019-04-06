@@ -7,10 +7,10 @@
 
 }
 .welcome .wc1,.welcome .wc2{
-    width: 140px;
+    width: 160px;
     -webkit-text-stroke: 1px rgb(95, 176, 207);  
     -webkit-text-fill-color : transparent;
-    font-size: 30px;
+    font-size: 40px;
     line-height: 60px;
 }
 .welcome .wc1{

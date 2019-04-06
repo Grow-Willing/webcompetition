@@ -57,26 +57,32 @@ export default class App extends React.Component {
         登陆
         </Button>
             <Drawer
-                title="登陆"
                 placement="top"
                 closable={true}
                 height={"100%"}
                 onClose={this.onClose}
                 visible={this.state.visible}
+                bodyStyle={{
+                    backgroundImage:`url(${require("../usercenter/bgimages/passwordbackground.jpeg")})`,
+                    height:"100vh",
+                    backgroundRepeat:"no-repeat",
+                    backgroundSize:"100% 100%"
+                }}x
             >
                 <div className={"changepassword"}>
-                            <div>
-                                <div className={"pwdtitle"}>请输入账号:</div>
-                                <Input placeholder="请输入账号" allowClear id={"userid"}/>
-                            </div>
-                            <div>
-                                <div className={"pwdtitle"}>请输入密码:</div>
-                                <Input.Password placeholder="请输入密码" id={"pwd"} onPressEnter={this.onsubmit}/>
-                            </div>
-                            <div>
-                                <Button type="primary" onClick={this.onsubmit}>提交</Button>
-                            </div>
-                        </div>
+                    <div style={{textAlign:"center",fontSize:32}}>登录</div>
+                    <div>
+                        <div className={"pwdtitle"}>请输入账号:</div>
+                        <Input placeholder="请输入账号" allowClear id={"userid"}/>
+                    </div>
+                    <div>
+                        <div className={"pwdtitle"}>请输入密码:</div>
+                        <Input.Password placeholder="请输入密码" id={"pwd"} onPressEnter={this.onsubmit}/>
+                    </div>
+                    <div>
+                        <Button type="primary" onClick={this.onsubmit}>提交</Button>
+                    </div>
+                </div>
             </Drawer>
       </div>
     );

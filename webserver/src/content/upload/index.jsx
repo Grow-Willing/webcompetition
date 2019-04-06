@@ -12,6 +12,7 @@ export default class index extends Component {
                 let data=new FormData();
                 data.append("path",path);
                 data.append("file",file);
+                data.append("userid",atob(sessionStorage.getItem("userid")));
                 let xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function(){
                     if(xhr.readyState == 4 && xhr.status==200){

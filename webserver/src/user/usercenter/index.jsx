@@ -3,6 +3,8 @@ import { message,Drawer, Button,Input,AutoComplete  } from 'antd';
 import Icon from './icon/index'
 import Bg from'./bg/index'
 import "./index.css";
+import passwordbackground from "./bgimages/passwordbackground.jpeg"
+import feedbackbackground from "./bgimages/feedbackbackground.jpg"
 const { TextArea } = Input;
 const Option = AutoComplete.Option;
 let defaultsrc;
@@ -21,7 +23,8 @@ export default class App extends React.Component {
         src:defaultsrc,
         background:defaultbg,
         result: [],
-        uploads:[]
+        uploads:[],
+        loading:false
     };
     icon={};
     componentWillMount = () => {
@@ -245,6 +248,7 @@ export default class App extends React.Component {
 		});
     };
     getuploadlist=()=>{
+        this.setState({loading:true});
         let userid=sessionStorage.getItem("userid");
         fetch("http://localhost:3005/user/getuploads",
             {
@@ -258,13 +262,29 @@ export default class App extends React.Component {
             Response=>Response.json()
         ).then(
             data=>{
-                console.log(data);
                 this.setState({
-                    uploads:data
+                    uploads:data,
+                    loading:false
                 });
             }
         ); 
     }
+    deletefile=(e)=>{
+        console.log(`http://localhost:3005/file/delete?url="${e.target.parentElement.firstChild.textContent}"`);
+        fetch(`http://localhost:3005/file/delete?url=${e.target.parentElement.firstChild.textContent}`).then(
+            Response=>Response.text()
+        ).then(
+            data=>{
+                if(data=="删除成功"){
+                    message.success(data);
+                    this.getuploadlist();
+                }else{
+                    message.error(data);
+                }
+            }
+        ); 
+    }
+
     //意见反馈
     showthirdChildrenDrawer = () => {
 		this.setState({
@@ -346,29 +366,35 @@ export default class App extends React.Component {
                         <div className={"personalitems"}>
                             <div>设置头像</div>
                             <Icon onClick={this.changeicon} src={this.state.src}  height={"70px"} width={"70px"}/>
-                            <Button type="dashed" size="small" className="reset" onClick={this.reseticon}>重置</Button>
-                            <Button size="small" className="submiticon" onClick={this.submiticon}>上传</Button>
+                            <Button type="dashed" size="small" className="reset" onClick={this.reseticon}>撤销更改</Button>
+                            <Button size="small" className="submiticon" onClick={this.submiticon}>确认上传</Button>
                             <input type="file" name="changeicon" ref="changeicon" style={{display:"none"}}/>
                         </div>
                         <div className={"personalitems"}>
                             <div>设置背景</div>
                             <Bg onClick={this.changebg} src={this.state.background}/>
-                            <Button type="dashed" size="small" className="reset" onClick={this.resetbg}>重置</Button>
-                            <Button size="small" className="submiticon" onClick={this.submitbg}>上传</Button>
+                            <Button type="dashed" size="small" className="reset" onClick={this.resetbg}>撤销更改</Button>
+                            <Button size="small" className="submiticon" onClick={this.submitbg}>确认上传</Button>
                             <input type="file" name="changebg" id="changebg" style={{display:"none"}}/>
                         </div>
                     </Drawer>
 
 
                     <Drawer
-                        title="修改密码"
                         placement="left"
                         width={"1300px"}
                         closable={true}
                         onClose={this.onsecondChildrenDrawerClose}
                         visible={this.state.secondchildrenDrawer}
+                        bodyStyle={{
+                            backgroundImage:`url(${passwordbackground})`,
+                            height:"100%",
+                            backgroundRepeat:"no-repeat",
+                            backgroundSize:"cover"
+                        }}
                     >
                         <div className={"changepassword"}>
+                            <div style={{textAlign:"center",fontSize:32}}>修改密码</div>
                             <div>
                                 <div className={"pwdtitle"}>请输入初始密码:</div>
                                 <Input.Password placeholder="请输入初始密码" id={"oldpwd"}/>
@@ -400,30 +426,48 @@ export default class App extends React.Component {
                         onClose={this.onuploadClose}
                         visible={this.state.uploadvisible}
                     >
-                        <ul>
+                        <ul style={{overflowY:"auto",width:"100%"}}>
+                            <li style={{display:"flex",justifyContent:"flex-end"}}>
+                            <Button type="primary" icon="reload" loading={this.state.loading} onClick={this.getuploadlist}>
+                                刷新列表
+                            </Button>
+                            </li>
                             {
-                                this.state.uploads.length&&this.state.uploads.map((item,index)=>{
-                                    
+                                this.state.uploads.length?this.state.uploads.map((item,index)=>{
                                     return (
                                         <li key={index}>
-                                            {this.state.uploads[index].file}
+                                            <div className="filespath" title={this.state.uploads[index].file}>
+                                                {this.state.uploads[index].file}
+                                                <Button type="primary" size="small" className="filespathbutton" onClick={this.deletefile}>
+                                                    删除
+                                                </Button>
+                                            </div>
+                                            
                                         </li>
                                     )
-                                })
+                                }):(<li style={{margin: "20px",textAlign:"center",fontSize:32,fontFamily:"楷体"}}>
+                                        空空如也
+                                    </li>)
                             }
                         </ul>
                     </Drawer>
 
                     <Drawer
-                        title="意见反馈"
                         placement="left"
                         width={"100vw"}
                         minWidth={"400px"}
                         closable={true}
                         onClose={this.onthirdChildrenDrawerClose}
                         visible={this.state.thirdchildrenDrawer}
+                        bodyStyle={{
+                            backgroundImage:`url(${feedbackbackground})`,
+                            height:"100%",
+                            backgroundRepeat:"no-repeat",
+                            backgroundSize:"cover"
+                        }}
                     >
                         <div className={"feedback"}>
+                            <div style={{textAlign:"center",fontSize:32,fontFamily:"楷体",margin:20}}>意见反馈</div>
                             <div className="feedbackmsg">
                                 <div>
                                     <i className="iconfont icon-bangdingyouxiang"/>
@@ -432,15 +476,15 @@ export default class App extends React.Component {
                                         style={{ width: "100%" }}
                                         onSearch={this.handleSearch}
                                     >
-                                        <Input id="feedbackemail" placeholder="请输入邮箱" />
+                                        <Input id="feedbackemail" placeholder="请输入邮箱" className="feedbackinput"/>
                                     </AutoComplete>
                                 </div>
                                 <div>
                                     <i className="iconfont icon-dianhua"/>
-                                    <Input id="feedbacktel" placeholder="请输入联系电话" />
+                                    <Input id="feedbacktel" placeholder="请输入联系电话"  className="feedbackinput"/>
                                 </div>
                                 <div id="feedbacktextbox">
-                                    <TextArea id="feedbacktext" placeholder="请输入您的宝贵意见" autosize={{ minRows: 5, maxRows: 10 }} />
+                                    <TextArea id="feedbacktext" className="feedbackinput" placeholder="请输入您的宝贵意见" autosize={{ minRows: 5, maxRows: 10 }} />
                                 </div>
                             </div>
                             <Button id="submitfeedback" type="primary" onClick={this.submitfeedback}>提交</Button>

@@ -15,12 +15,11 @@
 .personalitems{
     margin-bottom: 50px;
     position: relative;
-    height: 90px;
 }
 .reset{
     position: absolute;
-    right: 20%;
-    top: 5%;
+    right: 10%;
+    top: 20%;
     cursor: pointer;
     border-radius: 5px;
     padding: 0 5px;
@@ -28,7 +27,7 @@
 }
 .submiticon{
     position: absolute;
-    right: 20%;
+    right: 10%;
     bottom: 5%;
     cursor: pointer;
     border-radius: 5px;
@@ -70,6 +69,23 @@
     text-align: center;
     font-size: 32px;
 }
+.filespath{
+    position: relative;
+    padding-left: 100px;
+    margin: 20px;
+    font-family: "楷体";
+    font-size: 24px;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.filespathbutton{
+    position: absolute;
+    left: 2px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
 .feedback{
     min-height: 125px;
 }
@@ -97,4 +113,7 @@
 #submitfeedback{
     display: block;
     margin: auto;
+}
+.feedbackinput{
+    background-color: rgba(255,255,255,0.9);
 }

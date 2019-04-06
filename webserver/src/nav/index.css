@@ -17,6 +17,7 @@
     padding: 5px;
     border-bottom: 2px solid transparent;
     margin-top: 10px;
+    transition: 0.5s
 }
 .nav-ul li:nth-child(1){
     margin-top: 0;
@@ -34,7 +35,6 @@
     content: '';
     width: 0;
     height: 2px;
-    background-color: white;
     transition: 0.5s;
 }
 .nav-ul li:hover::after{
@@ -43,7 +43,6 @@
     left: 0;
 }
 .nav-ul .on{
-    border-bottom: 2px solid white;
     font-size: 32px;
 }
 .nav-ul .on a{

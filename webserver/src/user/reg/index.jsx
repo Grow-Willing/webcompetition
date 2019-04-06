@@ -86,14 +86,20 @@ export default class index extends Component {
                 注册
                 </Button>
                     <Drawer
-                        title="注册"
                         placement="bottom"
                         closable={true}
                         height={"100%"}
                         onClose={this.onClose}
                         visible={this.state.visible}
+                        bodyStyle={{
+                            backgroundImage:`url(${require("../usercenter/bgimages/passwordbackground.jpeg")})`,
+                            height:"100vh",
+                            backgroundRepeat:"no-repeat",
+                            backgroundSize:"100% 100%"
+                        }}
                     >
                         <div className={"reg"}>
+                            <div style={{textAlign:"center",fontSize:32}}>注册</div>
                             <div>
                                 <div className={"pwdtitle"}>请输入您希望的账号:</div>
                                 <Input placeholder="请输入您希望的账号(仅数字)" id={"count"}/>

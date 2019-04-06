@@ -9,10 +9,10 @@
 }
 .welcomes p{
     margin: 0;
-    width: 120px;
+    width: 160px;
     white-space: nowrap;
     -webkit-text-stroke: 1px rgb(252, 232, 118);  
     -webkit-text-fill-color : transparent;
-    font-size: 30px;
+    font-size: 40px;
     line-height: 60px;
 }

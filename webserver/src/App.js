@@ -37,7 +37,7 @@ class App extends Component {
                     width: "100%",
                     height: "100%",
                     minWidth: "1300px",
-                    minHeight: "475px",
+                    minHeight: "515px",
                     top: 0,
                     left: 0,
                     zIndex: -1,
