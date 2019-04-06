@@ -386,6 +386,7 @@ export default class App extends React.Component {
                         closable={true}
                         onClose={this.onsecondChildrenDrawerClose}
                         visible={this.state.secondchildrenDrawer}
+                        destroyOnClose="true"
                         bodyStyle={{
                             backgroundImage:`url(${passwordbackground})`,
                             height:"100%",
@@ -459,6 +460,7 @@ export default class App extends React.Component {
                         closable={true}
                         onClose={this.onthirdChildrenDrawerClose}
                         visible={this.state.thirdchildrenDrawer}
+                        destroyOnClose="true"
                         bodyStyle={{
                             backgroundImage:`url(${feedbackbackground})`,
                             height:"100%",

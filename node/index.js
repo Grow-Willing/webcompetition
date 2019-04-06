@@ -243,9 +243,34 @@ router.get("/file/get",async (ctx)=>{
     }else{
         ctx.body="404";
     }
-    
 })
-
+//新建文件夹
+router.get("/file/mkdir",async (ctx)=>{
+    let{path,name}=ctx.query;
+    let dirpath=join(__dirname,path,name);
+    if(!fs.existsSync(dirpath)){
+        fs.mkdirSync(dirpath);
+        return ctx.body="ok";
+    }
+    return ctx.body="目录已存在";
+})
+//文件移动和重命名
+router.get("/file/moveAndRename",async (ctx)=>{
+    let oldpath=join(__dirname,ctx.query.oldpath,ctx.query.oldname),
+        newpath=join(__dirname,ctx.query.newpath);
+    if(fs.existsSync(oldpath)&&fs.existsSync(newpath)){
+        newpath=join(newpath,ctx.query.newname);
+        if(fs.statSync(oldpath).isFile()){
+            let oldfile=join(ctx.query.oldpath,ctx.query.oldname).replace(/\\/g,"/"),
+                newfile=join(ctx.query.newpath,ctx.query.newname).replace(/\\/g,"/");
+            await files.findOneAndUpdate({file:oldfile},{file:newfile});
+        }
+        fs.renameSync(oldpath,newpath);
+        ctx.body="ok";
+    }else{
+        ctx.body="目录不存在";
+    }
+})
 
 //管理员管理
 router.get("/admin*",async (ctx)=>{
@@ -281,7 +306,6 @@ router.post(
         )
     }
 );
-
 
 
 

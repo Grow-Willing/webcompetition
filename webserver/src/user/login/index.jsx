@@ -62,12 +62,13 @@ export default class App extends React.Component {
                 height={"100%"}
                 onClose={this.onClose}
                 visible={this.state.visible}
+                destroyOnClose="true"
                 bodyStyle={{
                     backgroundImage:`url(${require("../usercenter/bgimages/passwordbackground.jpeg")})`,
                     height:"100vh",
                     backgroundRepeat:"no-repeat",
                     backgroundSize:"100% 100%"
-                }}x
+                }}
             >
                 <div className={"changepassword"}>
                     <div style={{textAlign:"center",fontSize:32}}>登录</div>

@@ -91,6 +91,7 @@ export default class index extends Component {
                         height={"100%"}
                         onClose={this.onClose}
                         visible={this.state.visible}
+                        destroyOnClose="true"
                         bodyStyle={{
                             backgroundImage:`url(${require("../usercenter/bgimages/passwordbackground.jpeg")})`,
                             height:"100vh",
