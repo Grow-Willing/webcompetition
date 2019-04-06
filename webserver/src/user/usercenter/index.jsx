@@ -116,7 +116,7 @@ export default class App extends React.Component {
                         let box=document.getElementById("background");
                         box.style.background=`url(${background}) no-repeat center/cover`;
                         setState({
-                            background
+                            background:`url(${background})`
                         })
                     }
                 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 export default class index extends Component {
     shouldComponentUpdate = (nextProps, nextState) => {
-      if(nextProps!==this.props){
-          return true;
-      }else{
+      if(nextProps==this.props){
           return false;
+      }else{
+          return true;
       }
     }
     
