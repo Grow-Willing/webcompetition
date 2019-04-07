@@ -13,11 +13,17 @@ leftlist[0].addEventListener("click",()=>{
     switchhash();
 });
 for(let i=1;i<leftlist.length;i++){
-    leftlist[i].addEventListener("click",()=>{
-        switchhash();
-        window.location.hash=`#/${i}`;
-        switchhash();
-    });
+    if(i==1){
+        leftlist[i].addEventListener("click",()=>{
+            window.location.href=`http://localhost:3005/`;
+        });
+    }else{
+        leftlist[i].addEventListener("click",()=>{
+            switchhash();
+            window.location.hash=`#/${i}`;
+            switchhash();
+        });
+    }
 }
 function switchhash(){
     hash=window.location.hash.replace("#/","");
@@ -69,6 +75,7 @@ async function getlist(){
             checkboxclickevent();
         }
     );
+    allcheck.checked=false;
 }
 getlist();
 deletebutton.onclick=async function(){

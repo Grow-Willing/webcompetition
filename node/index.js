@@ -164,7 +164,7 @@ router.post("/user/reg",async (ctx)=>{
     //获取信息
     let userid=Number(result.userid);
     let password=result.password;
-    if(isNaN(userid)||typeof(password)!="string"||userid<=0||password.length<=6){//参数合法性校验
+    if(isNaN(userid)||typeof(password)!="string"||userid<=100||password.length<=6){//参数合法性校验
         ctx.body={};
         return;
     }
@@ -208,7 +208,7 @@ router.post("/user/change",async (ctx)=>{
 router.get("/user/judge",async (ctx)=>{
     let userid=ctx.query.userid;
     let password=ctx.query.password;
-    if(isNaN(Number(userid))||typeof(password)!="string"||Number(userid)<=0||password.length<=6){
+    if(isNaN(Number(userid))||typeof(password)!="string"||Number(userid)<=100||password.length<=6){
         ctx.body=false;
         return;
     }

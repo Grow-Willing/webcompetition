@@ -77,6 +77,7 @@
             ).then(
                 data=>{
                     if(data==1){
+                        window.sessionStorage.setItem("userid",btoa(id.value));
                         window.location.reload();
                     }else{
                         alert("密码不正确");
