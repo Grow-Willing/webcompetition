@@ -3,8 +3,9 @@ let hash=window.location.hash.replace("#/",""),
     rightlist=document.getElementsByClassName("rightlist"),
     deletebutton=document.getElementById('delete'),
     checks=document.getElementsByClassName("checks"),
-    buffer=[];
-    
+    buffer=[],
+    allcheck=document.getElementById('allcheck');
+ 
 //路由切换
 leftlist[0].addEventListener("click",()=>{
     switchhash();
@@ -63,8 +64,9 @@ async function getlist(){
                     <div class="uploader hiddenword" title="${items.userid}">${items.userid}</div>
                     <input type="checkbox" name="checks" class="checks"/>
                 </div>`;
-                document.getElementById('uplist').innerHTML=local;
             });
+            document.getElementById('uplist').innerHTML=buffer.length?local:`<p style="width: 100%;font-size:20px;text-align:center;font-family: 楷体;">空空如也</p>`;
+            checkboxclickevent();
         }
     );
 }
@@ -87,5 +89,32 @@ deletebutton.onclick=async function(){
     }
     if(needreload){
         window.location.reload();
+    }
+}
+
+//全选功能
+allcheck.addEventListener("click",()=>{
+    for(let i=0;i<checks.length;i++){
+        checks[i].checked=allcheck.checked;
+    }
+})
+
+function checkboxclickevent(){
+    for(let i=0;i<checks.length;i++){
+        checks[i].addEventListener("click",()=>{
+            if(allcheck.checked){
+                if(checks[i].checked==false){
+                    allcheck.checked=false;
+                }
+            }else{
+                for(let i=0;i<checks.length;i++){
+                    if(checks[i].checked==false){
+                        allcheck.checked=false;
+                        return;
+                    }
+                }
+                allcheck.checked=true;
+            }
+        })
     }
 }
