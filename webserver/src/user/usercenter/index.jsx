@@ -145,15 +145,13 @@ export default class App extends React.Component {
     }
     resetbg=()=>{
         let userid=atob(sessionStorage.getItem("userid"));
-        let x=document.getElementsByClassName("bgshower")[0].style;
+        let x=document.getElementById("background").style;
         x.backgroundImage=defaultbg;
         x.backgroundRepeat="no-repeat";
         x.backgroundPosition="center";
-        x.backgroundSize="cover";
-        x=document.getElementById("background").style;
-        x.backgroundImage=defaultbg;
-        x.backgroundRepeat="no-repeat";
-        x.backgroundPosition="center";
+        this.setState({
+            background:defaultbg
+        })
         x.backgroundSize="cover";
         x=document.getElementById("changebg");
         x.value="";
