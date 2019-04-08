@@ -20,7 +20,7 @@ export default class App extends React.Component {
       let userid=id.value;
       let pwd=document.getElementById("pwd");
       let password=pwd.value;
-      if(isNaN(Number(userid))||Number(userid)<=0){
+      if(isNaN(Number(userid))||Number(userid)<=100){
         message.info("账号不合法");
         id.value="";
         pwd.value="";

@@ -44,10 +44,9 @@
 }
 .nav-ul .on{
     font-size: 32px;
-}
-.nav-ul .on a{
     color:white;
 }
 .nav-ul li a{
     display: block;
+    transition: 0.5s;
 }

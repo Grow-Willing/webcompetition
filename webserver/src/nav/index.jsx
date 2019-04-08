@@ -20,38 +20,18 @@ export default class index extends Component {
                     }
                     return false;
                 };
-            }else{
-                oli[i].onclick=function(){
-                    for(let j=0;j<len;j++){
-                        if(j!==i) oli[j].className="";
-                        else oli[j].className="on";
-                    }
-                    oli[i].firstChild.click();
-                }
             }
-        }
-        let srcurl=decodeURIComponent(window.location.hash).split("/");
-        if(srcurl[1]==""){
-            oli[0].classList.add("on");
-        }else if(srcurl[1]=="全部文件"){
-            if(srcurl[2]=="理科"){
-                oli[1].classList.add("on");
-            }else if(srcurl[2]=="文科"){
-                oli[2].classList.add("on");
-            }
-        }else if(srcurl[1]=="help"){
-            oli[4].classList.add("on");
         }
     }
     render() {
         return (
             <div className="nav">
                 <ul className="nav-ul">
-                    <li><NavLink to="/">WELCOME</NavLink></li>
-                    <li><NavLink to="/全部文件/理科">理工科资料下载处</NavLink></li>
-                    <li><NavLink to="/全部文件/文科">文科资料下载处</NavLink></li>
+                    <li><NavLink to="/" exact activeClassName="on">WELCOME</NavLink></li>
+                    <li><NavLink to="/全部文件/理科" activeClassName="on">理工科资料下载处</NavLink></li>
+                    <li><NavLink to="/全部文件/文科" activeClassName="on">文科资料下载处</NavLink></li>
                     <li><a href="javascript:void();">学习资料上传</a></li>
-                    <li><NavLink to="/help">疑问解答</NavLink></li>
+                    <li><NavLink to="/help" activeClassName="on">疑问解答</NavLink></li>
                 </ul>
             </div>
         )

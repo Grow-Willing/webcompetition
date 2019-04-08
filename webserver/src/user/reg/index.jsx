@@ -40,8 +40,8 @@ export default class index extends Component {
                 count.focus();
                 return;
             }
-            if(Number(count.value)<=0){
-                message.info("账号的数字需要大于0");
+            if(Number(count.value)<=100){
+                message.info("账号的数字需要大于100");
                 regpwd.value="";
                 regconfirmpwd.value="";
                 count.value="";
@@ -61,7 +61,6 @@ export default class index extends Component {
                 Response=>Response.json()
             ).then(
                 data=>{
-                    console.log(data);
                     if(data.userid){
                         message.info("注册成功");
                         regpwd.value="";
@@ -103,7 +102,7 @@ export default class index extends Component {
                             <div style={{textAlign:"center",fontSize:32}}>注册</div>
                             <div>
                                 <div className={"pwdtitle"}>请输入您希望的账号:</div>
-                                <Input placeholder="请输入您希望的账号(仅数字)" id={"count"}/>
+                                <Input placeholder="请输入您希望的账号(仅100以上数字)" id={"count"}/>
                             </div>
                             <div>
                                 <div className={"pwdtitle"}>请输入密码:</div>
